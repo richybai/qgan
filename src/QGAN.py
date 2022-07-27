@@ -117,9 +117,9 @@ def vector_to_angle(data):
     return angle
     
 
-class GenewhitDiscrim(nn.Cell):
+class GenewithDiscrim(nn.Cell):
     def __init__(self, G, convert, D):
-        super(GenewhitDiscrim, self).__init__()
+        super(GenewithDiscrim, self).__init__()
         self.G = G
         self.convert = convert
         self.D = D
