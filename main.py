@@ -7,13 +7,13 @@ from mindspore import nn
 import mindspore.numpy as np
 
 ms.context.set_context(mode=ms.context.PYNATIVE_MODE, device_target="CPU")
-
+# ms.set_seed(100)
 
 
 if __name__ == "__main__":
     n_qubits = 2
-    lr = 1e-3
-    epoch = 5
+    lr = 1e-2
+    epoch = 10
     # 生成相应的线路
     g = generator_photonic_circuit(num_qubits=n_qubits)
     d = discriminator_circuit(num_qubits=n_qubits, layers=2)
@@ -41,11 +41,11 @@ if __name__ == "__main__":
     for i in range(epoch):
         print(f"epoch{i+1}")
         # 每个epoch里面D训练的轮数, 增加D的准确率
-        for _ in range(10):        
+        for _ in range(5):        
             train_one_step_D_with_true_data(train_true, train_true_label)
             train_one_step_D_with_fake_data(train_fake_label)
         # 每个epoch里面G训练的轮数, 增加G生成数据的能力
         for _ in range(100):
             train_one_step_G(train_true_label)
         
-        print(D(train_true), G_with_D())
+        print("true data logits:", D(train_true), "fake data logits:", G_with_D())
